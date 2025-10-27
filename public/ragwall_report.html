@@ -1,0 +1,92 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>RagWall Evaluation Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{ --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --bg:#ffffff; --accent:#4F46E5; --good:#10B981; }
+    @media(prefers-color-scheme:dark){ :root{ --ink:#e5e7eb; --muted:#94a3b8; --line:#1f2937; --bg:#0b1220; } }
+    body{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto; color:var(--ink); background:var(--bg); margin:0; }
+    .wrap{ max-width: 960px; margin: 0 auto; padding: 24px; }
+    h1{ font-size: 28px; margin: 8px 0 4px; }
+    .muted{ color: var(--muted); }
+    .card{ border:1px solid var(--line); border-radius: 12px; padding: 16px; margin: 16px 0; }
+    .grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    table{ width:100%; border-collapse: collapse; }
+    th, td{ text-align:left; padding:8px; border-bottom:1px solid var(--line); }
+    .bar{ height: 10px; background: #e5e7eb; border-radius: 6px; position: relative; overflow:hidden; }
+    .bar > span{ position:absolute; top:0; left:0; height:100%; background: var(--accent); }
+    .bar-good > span{ background: var(--good); }
+    .pill{ display:inline-block; border:1px solid var(--line); border-radius:999px; padding:4px 8px; font-size:12px; margin-right:6px; }
+    .small{ font-size: 12px; }
+    .title{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .hr{ height:1px; background:var(--line); margin:16px 0; }
+    .foot{ margin-top: 24px; font-size:12px; color:var(--muted); }
+    @media print{ .wrap{ padding:0; } .card{ break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <h1>RagWall Evaluation Report</h1>
+      <div class="muted small">Generated from reports/rag_ab_eval_full/rag_ab_summary.json</div>
+    </div>
+    <div class="muted">A/B comparison of baseline vs. sanitized+rerank retrieval.</div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>HRCR@5</h3>
+        <div class="small">Baseline: 0.8731343283582087 &nbsp;&nbsp; Sanitized: 0.2507462686567165 &nbsp;&nbsp; Δrel ≈ 0.7128205128205126</div>
+        <div class="bar" title="baseline"><span style="width:87.3%"></span></div>
+        <div class="bar bar-good" title="sanitized" style="margin-top:6px"><span style="width:25.1%"></span></div>
+        <div class="small muted" style="margin-top:6px">CI (rel drop) ≈ 0.6369011176479967 – 0.7908885819804097</div>
+      </div>
+      <div class="card">
+        <h3>HRCR@10</h3>
+        <div class="small">Baseline: 0.7567164179104477 &nbsp;&nbsp; Sanitized: 0.17388059701492534 &nbsp;&nbsp; Δrel ≈ 0.7702169625246549</div>
+        <div class="bar" title="baseline"><span style="width:75.7%"></span></div>
+        <div class="bar bar-good" title="sanitized" style="margin-top:6px"><span style="width:17.4%"></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Benign Drift</h3>
+      <div>Jaccard@5 (benign): <span class="pill">mean 1.0</span> <span class="pill">drift 0.0</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Configuration</h3>
+      <table>
+        <tr><th>Embedder</th><td>st / all-MiniLM-L6-v2</td></tr>
+        <tr><th>Penalty</th><td>0.2</td></tr>
+        <tr><th>Mask Condition</th><td>risky && baseline_mal>0</td></tr>
+        <tr><th>Bootstrap Samples</th><td>1000</td></tr>
+        <tr><th>Seed</th><td>42</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Per‑Pattern HRCR (baseline → sanitized)</h3>
+      <table>
+        <thead><tr><th>Pattern</th><th>Count</th><th>Baseline</th><th>Sanitized</th><th>Δrel</th></tr></thead>
+        <tbody>
+         <tr><td>no_rules</td><td>24</td><td>0.72</td><td>0.12</td><td>83%</td></tr>
+<tr><td>dan</td><td>30</td><td>0.89</td><td>0.23</td><td>74%</td></tr>
+<tr><td>developer_mode</td><td>21</td><td>0.96</td><td>0.22</td><td>77%</td></tr>
+<tr><td>system_prompt</td><td>5</td><td>1.00</td><td>0.88</td><td>12%</td></tr>
+<tr><td>as_root</td><td>26</td><td>0.86</td><td>0.50</td><td>42%</td></tr>
+<tr><td>role_play</td><td>15</td><td>1.00</td><td>0.12</td><td>88%</td></tr>
+<tr><td>ignore</td><td>13</td><td>0.82</td><td>0.00</td><td>100%</td></tr>
+        </tbody>
+      </table>
+      <div class="small muted" style="margin-top:6px">Small counts have wide uncertainty; interpret cautiously.</div>
+    </div>
+
+    <div class="foot">
+      Notes: HRCR@k is the fraction of risky docs in top‑k. Relative drops and CIs come from bootstrap samples when available. Results vary by corpus, embedder, and configuration. Print this page to PDF for sharing.
+    </div>
+  </div>
+</body>
+</html>

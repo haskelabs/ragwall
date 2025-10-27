@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="RagWall mark">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <style>
+      .shield { fill:url(#g); stroke:#0F172A; stroke-width:2; stroke-linejoin:round; }
+      .brick { fill:#FFFFFF; opacity:0.85; stroke:#0F172A; stroke-width:1.2; }
+      .divider { stroke:#4338CA; stroke-width:7; stroke-linecap:round; }
+    </style>
+    <clipPath id="half">
+      <rect x="0" y="0" width="60" height="120"/>
+    </clipPath>
+  </defs>
+  <!-- Left half: shield -->
+  <g transform="translate(10,6)">
+    <path class="shield" d="M50 0c-9 7.4-18 10.3-26 11.8V47c0 16.5 11.4 31.7 26 38.2 14.6-6.5 26-21.7 26-38.2V11.8C68 10.3 59 7.4 50 0z" clip-path="url(#half)"/>
+    <path class="divider" d="M12 40 L48 40"/>
+  </g>
+  <!-- Right half: simple wall blocks -->
+  <g transform="translate(68,28)">
+    <rect class="brick" x="4" y="0" width="36" height="16" rx="2"/>
+    <rect class="brick" x="0" y="20" width="36" height="16" rx="2"/>
+    <rect class="brick" x="8" y="40" width="36" height="16" rx="2"/>
+  </g>
+</svg>

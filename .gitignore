@@ -78,3 +78,6 @@ enterprise/
 
 # Patent materials
 patent/
+
+# Private documentation drafts
+docs/internal/

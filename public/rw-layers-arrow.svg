@@ -1,8 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' width='64' height='64' aria-label='Retrieval layer'>
-  <g stroke='#1F2937' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'>
-    <path d='M8 16l14-6 14 6-14 6-14-6z'/>
-    <path d='M8 24l14 6 14-6'/>
-    <path d='M22 30v7'/>
-    <path d='M18 33l4 4 4-4'/>
-  </g>
-</svg>

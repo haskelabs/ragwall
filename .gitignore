@@ -72,3 +72,9 @@ experiments/results/
 tmp/
 temp/
 *.tmp
+
+# Enterprise-only assets
+enterprise/
+
+# Patent materials
+patent/

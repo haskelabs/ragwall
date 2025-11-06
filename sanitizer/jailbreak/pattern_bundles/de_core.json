@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "language": "de",
+    "bundle": "core",
+    "version": "0.1.0",
+    "description": "German core jailbreak patterns (TEMPLATE - Contributions welcome!)",
+    "last_updated": "2025-11-05",
+    "status": "draft",
+    "target_market": "Germany (83M), Austria (9M), Switzerland (6M)",
+    "coverage": {
+      "core_jailbreak": 0,
+      "role_playing": 0,
+      "instruction_override": 0
+    }
+  },
+  "keywords": [
+    "ignoriere .{0,15}(?:Anweisungen|Regeln|Einschränkungen|Sicherheit|Richtlinien)",
+    "deaktiviere .{0,15}(?:Sicherheit|Filter|Einschränkungen)",
+    "modus .{0,15}(?:entwickler|administrator|debug)",
+    "ohne .{0,15}(?:Einschränkungen|Beschränkungen|Filter)",
+    "du bist dan",
+    "\\bdan\\b"
+  ],
+  "structure": [
+    "\\bhandle als\\b",
+    "\\bvon jetzt an\\b",
+    "\\bentwicklermodus\\b",
+    "\\bohne\\s+Einschränkungen\\b"
+  ],
+  "entropy_triggers": [
+    "dan",
+    "ohne einschränkungen",
+    "ignoriere alles"
+  ],
+  "_contribution_guide": {
+    "target_patterns": 50,
+    "target_detection_rate": "90%+",
+    "target_false_positive_rate": "<5%",
+    "test_queries_needed": 100,
+    "note": "Please translate core attack patterns from en_core.json and add German-specific variations"
+  }
+}

@@ -1,9 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' width='64' height='64' aria-label='Embedding space'>
-  <g stroke='#1F2937' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'>
-    <rect x='8' y='8' width='28' height='28' rx='2'/>
-    <path d='M8 22h28M22 8v28'/>
-    <circle cx='16' cy='28' r='2' fill='#C2410C'/>
-    <path d='M16 28l10-10' />
-    <circle cx='26' cy='18' r='2' fill='#C2410C'/>
-  </g>
-</svg>

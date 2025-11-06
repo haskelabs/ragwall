@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov black flake8 mypy
+
+    - name: Run linting
+      run: |
+        # Stop on formatting issues
+        black --check sanitizer/ src/ scripts/
+        # Warnings only for flake8
+        flake8 sanitizer/ src/ --max-line-length=100 || true
+
+    - name: Run type checking
+      run: |
+        # Type check main packages
+        mypy sanitizer/ src/ --ignore-missing-imports || true
+
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=sanitizer --cov=src --cov-report=xml --cov-report=term
+
+    - name: Upload coverage to Codecov
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.10'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+
+  api-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Start API server
+      run: |
+        # Create minimal vectors for testing
+        python scripts/rag/make_tiny_vectors.py
+        # Start API in background
+        RAGWALL_VECTORS=experiments/results/tiny_jb_vectors.pt python scripts/serve_api.py &
+        # Wait for server to start
+        sleep 10
+
+    - name: Test API endpoints
+      run: |
+        # Health check
+        curl -f http://127.0.0.1:8000/health
+
+        # Sanitize endpoint
+        curl -X POST http://127.0.0.1:8000/v1/sanitize \
+          -H "Content-Type: application/json" \
+          -d '{"query": "What is 2+2?"}' \
+          -f
+
+        # Rerank endpoint
+        curl -X POST http://127.0.0.1:8000/v1/rerank \
+          -H "Content-Type: application/json" \
+          -d '{"candidates": [{"text": "test", "score": 0.9}], "query_meta": {"risky": false}}' \
+          -f
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy results to GitHub Security
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'

@@ -33,7 +33,7 @@ Most RAG security solutions operate **after** malicious queries have already bee
 
 ## How It Works
 
-```mermaid
+```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         RAGWall Pipeline                        │
 └─────────────────────────────────────────────────────────────────┘

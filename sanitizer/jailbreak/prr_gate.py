@@ -61,10 +61,16 @@ class PRRGate:
         self.min_signals = max(1, int(min_signals))
 
         keywords = list(keyword_patterns) if keyword_patterns is not None else DEFAULT_KEYWORDS
-        structure = list(structure_patterns) if structure_patterns is not None else DEFAULT_STRUCTURE
+        structure = (
+            list(structure_patterns) if structure_patterns is not None else DEFAULT_STRUCTURE
+        )
 
-        self._keyword_regex: List[re.Pattern[str]] = [re.compile(pat, re.IGNORECASE) for pat in keywords]
-        self._structure_regex: List[re.Pattern[str]] = [re.compile(pat, re.IGNORECASE) for pat in structure]
+        self._keyword_regex: List[re.Pattern[str]] = [
+            re.compile(pat, re.IGNORECASE) for pat in keywords
+        ]
+        self._structure_regex: List[re.Pattern[str]] = [
+            re.compile(pat, re.IGNORECASE) for pat in structure
+        ]
 
     def _run(self, text: str, patterns: List[re.Pattern[str]]) -> List[str]:
         hits: List[str] = []
@@ -82,14 +88,20 @@ class PRRGate:
         keyword_hits = self._run(text, self._keyword_regex)
         structure_hits = self._run(text, self._structure_regex)
 
-        keyword_signal = len(keyword_hits) >= self.keyword_threshold if self.keyword_threshold else False
-        structure_signal = len(structure_hits) >= self.structure_threshold if self.structure_threshold else False
+        keyword_signal = (
+            len(keyword_hits) >= self.keyword_threshold if self.keyword_threshold else False
+        )
+        structure_signal = (
+            len(structure_hits) >= self.structure_threshold if self.structure_threshold else False
+        )
         num_signals = int(keyword_signal) + int(structure_signal)
         risky = num_signals >= self.min_signals
 
         # Score is a simple aggregate used for telemetry / debugging.
         score = float(len(keyword_hits) + len(structure_hits))
-        return PRRResult(risky=risky, keyword_hits=keyword_hits, structure_hits=structure_hits, score=score)
+        return PRRResult(
+            risky=risky, keyword_hits=keyword_hits, structure_hits=structure_hits, score=score
+        )
 
 
 __all__ = [

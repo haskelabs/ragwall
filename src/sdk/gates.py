@@ -12,9 +12,9 @@ def should_allow_tool(meta: Dict[str, Any]) -> bool:
         if not should_allow_tool(meta):
             raise PermissionError('Tool call blocked: two-signal rule')
     """
-    risky = bool(meta.get('risky')) or bool(meta.get('risk'))
-    baseline_mal_k = int(meta.get('baseline_mal_k', 0))
-    reasons = meta.get('reasons') or []
+    risky = bool(meta.get("risky")) or bool(meta.get("risk"))
+    baseline_mal_k = int(meta.get("baseline_mal_k", 0))
+    reasons = meta.get("reasons") or []
     if not isinstance(reasons, list):
         reasons = [str(reasons)]
     distinct = len(set(str(r) for r in reasons))
@@ -22,4 +22,3 @@ def should_allow_tool(meta: Dict[str, Any]) -> bool:
 
 
 __all__ = ["should_allow_tool"]
-

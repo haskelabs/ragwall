@@ -12,14 +12,13 @@ from src.api.server import run  # noqa: E402
 
 
 def main() -> None:
-    host = os.environ.get('RAGWALL_HOST', '127.0.0.1').strip() or '127.0.0.1'
+    host = os.environ.get("RAGWALL_HOST", "127.0.0.1").strip() or "127.0.0.1"
     try:
-        port = int(os.environ.get('RAGWALL_PORT', '8000'))
+        port = int(os.environ.get("RAGWALL_PORT", "8000"))
     except Exception:
         port = 8000
     run(host=host, port=port)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-

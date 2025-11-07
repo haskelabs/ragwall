@@ -28,8 +28,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pytest pytest-cov black flake8 mypy
+        pip install -r requirements-dev.txt
 
     - name: Run linting
       run: |
@@ -69,16 +68,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
 
     - name: Start API server
       run: |
-        # Create minimal vectors for testing
-        python scripts/rag/make_tiny_vectors.py
-        # Start API in background
-        RAGWALL_VECTORS=experiments/results/tiny_jb_vectors.pt python scripts/serve_api.py &
-        # Wait for server to start
-        sleep 10
+        python scripts/serve_api.py &
+        sleep 5
 
     - name: Test API endpoints
       run: |
@@ -94,7 +89,7 @@ jobs:
         # Rerank endpoint
         curl -X POST http://127.0.0.1:8000/v1/rerank \
           -H "Content-Type: application/json" \
-          -d '{"candidates": [{"text": "test", "score": 0.9}], "query_meta": {"risky": false}}' \
+          -d '{"risky": false, "baseline_hrcr_positive": false, "k": 1, "candidates": [{"id": "doc1", "title": "test", "snippet": "hello", "score": 0.9}]}' \
           -f
 
   security-scan:

@@ -1,6 +1,6 @@
 # 🛡️ RAGWall
 
-[![CI](https://github.com/haskelabs/ragwall/actions/workflows/ci.yml/badge.svg)](https://github.com/haskelabs/ragwall/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.9%2B-blue) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
+![CI](https://img.shields.io/badge/ci-pending-lightgrey) ![Python](https://img.shields.io/badge/python-3.9%2B-blue) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
 
 **Open-core RAG firewall** — RagWall sanitises queries _before_ they are embedded so prompt-injection scaffolds never enter your vector space. This open-source edition ships the rules-first core (regex gate + deterministic rewrite + optional masked reranker) under Apache 2.0; multilingual bundles, PHI masking, audit receipts, and ML-assisted rewriting live in the private enterprise repo.
 
@@ -16,7 +16,59 @@ RAG systems retrieve relevant documents based on user queries, then feed them to
 
 **RAGWall stops these attacks at the query level**, sanitizing inputs before they're embedded and retrieved, while preserving legitimate search intent.
 
+## Why RAGWall?
+
+Most RAG security solutions operate **after** malicious queries have already been embedded or retrieved. RAGWall is different:
+
+| **RAGWall** | **Alternatives** |
+|-------------|------------------|
+| ✅ **Pre-embedding defense** – Stops attacks before they enter your vector space | ❌ Post-retrieval filtering or post-generation moderation |
+| ✅ **Zero benign drift** – Clean queries pass through untouched (Jaccard@5 = 1.0) | ❌ Rewrite all queries, degrading search quality |
+| ✅ **Deterministic & explainable** – Same input = same output, with pattern traces | ❌ Black-box ML models requiring training data and GPU |
+| ✅ **Conditional reranking** – Only demotes when both query AND docs are risky | ❌ Unconditional reranking or no document-level protection |
+| ✅ **Deploy anywhere** – Pure regex, runs on Lambda/edge/air-gapped networks | ❌ Requires model hosting, GPU, or external API calls |
+| ✅ **Open source + battle-tested** – 48% HRCR reduction, 100% detection on 1k red-team queries | ❌ Proprietary or unvalidated in production scenarios |
+
+**The key insight:** By sanitizing queries _before_ embedding, RAGWall prevents malicious context from ever polluting your retrieval results—without breaking legitimate searches.
+
 ## How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         RAGWall Pipeline                        │
+└─────────────────────────────────────────────────────────────────┘
+
+  User Query
+      │
+      ▼
+  ┌───────────────────┐
+  │   PRR Gate        │  ◄─── Keyword + Structure + Vector Patterns
+  │ (Pre-Embedding)   │
+  └─────────┬─────────┘
+            │
+      Risky?├─────► YES ──► Strip jailbreak scaffolds
+            │                      │
+            └────► NO ─────────────┘
+                                   │
+                                   ▼
+                            Sanitized Query
+                                   │
+                                   ▼
+                            Generate Embedding
+                                   │
+                                   ▼
+                            Vector Retrieval
+                                   │
+                                   ▼
+                          ┌────────────────┐
+                          │ Optional       │
+                          │ Masked Rerank  │ ◄─── Only if query risky
+                          │ (Two-Bucket)   │      AND docs risky
+                          └────────┬───────┘
+                                   │
+                                   ▼
+                            Safe Results → LLM
+```
 
 1. **Pre-Embedding PRR Gate** – Multi-signal Pattern-Recognition Receptor combines keyword bundles, structural heuristics, and cosine signals against orthogonalised attack vectors _before any embedding is generated_.
 2. **Deterministic Sanitiser** – Removes override scaffolds, canonicalises the result (Unicode NFKC/lowercase/whitespace), and reuses the baseline embedding only when canonical forms match. This avoids benign drift while keeping clean queries intact.

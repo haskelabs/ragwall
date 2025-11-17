@@ -8,12 +8,12 @@
 
 RAGWall detects **prompt injection attacks**, not harmful content:
 
-| Detects ✓ | Doesn't Detect ✗ |
-|-----------|------------------|
+| Detects ✓                      | Doesn't Detect ✗         |
+| ------------------------------ | ------------------------ |
 | "Ignore previous instructions" | "How to make explosives" |
-| "Override safety protocols" | "Write malware code" |
-| "Reveal your system prompt" | "Generate fake IDs" |
-| "Bypass HIPAA restrictions" | Harmful content requests |
+| "Override safety protocols"    | "Write malware code"     |
+| "Reveal your system prompt"    | "Generate fake IDs"      |
+| "Bypass HIPAA restrictions"    | Harmful content requests |
 
 **Why?** Prompt injections manipulate system behavior. Harmful content is a separate problem requiring content moderation.
 
@@ -52,26 +52,28 @@ print(f"Clean: {clean_query}")         # Sanitized version
 
 **Healthcare-specific attacks (1000 queries):**
 
-| Configuration | Detection | Latency | Use Case |
-|--------------|-----------|---------|----------|
-| **Domain Tokens** | **96.4%** | 21ms | Best for healthcare/finance |
-| **Regex-Only** | **86.6%** | 0.3ms | Production-ready, fast |
+| Configuration     | Detection | Latency | Use Case                    |
+| ----------------- | --------- | ------- | --------------------------- |
+| **Domain Tokens** | **96.4%** | 21ms    | Best for healthcare/finance |
+| **Regex-Only**    | **86.6%** | 0.3ms   | Production-ready, fast      |
 
 **General attacks (PromptInject public benchmark):**
 
-| Configuration | Detection | Latency | Use Case |
-|--------------|-----------|---------|----------|
-| **Transformer** | **90%** | 106ms | Good general coverage |
-| Regex-Only | 60-70% | 0.1ms | Basic protection |
+| Configuration   | Detection | Latency | Use Case              |
+| --------------- | --------- | ------- | --------------------- |
+| **Transformer** | **90%**   | 106ms   | Good general coverage |
+| Regex-Only      | 60-70%    | 0.1ms   | Basic protection      |
 
 ### Where RAGWall Excels
 
 **Domain-specific applications** (healthcare, finance, legal):
+
 - 96.4% detection with domain tokens
 - 8% better than competitors on healthcare attacks
 - Zero false positives
 
 **High-throughput APIs**:
+
 - 3,000+ queries/sec with regex-only mode
 - Sub-millisecond latency (0.3ms median)
 - 86.6% detection on domain-specific attacks
@@ -80,19 +82,19 @@ print(f"Clean: {clean_query}")         # Sanitized version
 
 **vs Competitors (Healthcare dataset):**
 
-| System | Detection | Latency | Cost/1M |
-|--------|-----------|---------|---------|
-| **RAGWall (Domain)** | **96.4%** | 21ms | $0 |
-| LLM-Guard | 88.3% | 47ms | ~$50-100 |
-| **RAGWall (Regex)** | **86.6%** | 0.3ms | $0 |
-| Rebuff | 22.5% | 0.03ms | ~$550 |
+| System               | Detection | Latency | Cost/1M  |
+| -------------------- | --------- | ------- | -------- |
+| **RAGWall (Domain)** | **96.4%** | 21ms    | $0       |
+| LLM-Guard            | 88.3%     | 47ms    | ~$50-100 |
+| **RAGWall (Regex)**  | **86.6%** | 0.3ms   | $0       |
+| Rebuff               | 22.5%     | 0.03ms  | ~$550    |
 
 **vs Competitors (General attacks):**
 
-| System | Detection | Latency |
-|--------|-----------|---------|
-| LLM-Guard | 90% | 38ms ← faster |
-| **RAGWall** | 90% | 106ms |
+| System      | Detection | Latency       |
+| ----------- | --------- | ------------- |
+| LLM-Guard   | 90%       | 38ms ← faster |
+| **RAGWall** | 90%       | 106ms         |
 
 **Verdict:** RAGWall excels on domain-specific attacks. For general attacks, it's competitive but slower than some alternatives.
 
@@ -168,14 +170,14 @@ gate = PRRGate(
 
 ## When to Use RAGWall
 
-### ✅ Use RAGWall When:
+### Use RAGWall When:
 
 - Building healthcare, finance, or legal RAG systems (96.4% detection)
 - Need high-throughput protection (3,000+ QPS at 86.6% detection)
 - Want zero-cost, open-source solution
 - Require zero false positives
 
-### ⚠️ Consider Alternatives When:
+### Consider Alternatives When:
 
 - Need general-purpose detection with <50ms latency (LLM-Guard is faster)
 - Detection <90% is unacceptable for general attacks
@@ -227,6 +229,7 @@ gate = PRRGate(healthcare_mode=True)
 ```
 
 Detects:
+
 - PHI extraction attempts ("export patient SSNs")
 - HIPAA bypass patterns ("override HIPAA")
 - Insurance fraud ("bill as medically necessary")
@@ -246,6 +249,7 @@ curl -X POST http://127.0.0.1:8000/v1/sanitize \
 ```
 
 Response:
+
 ```json
 {
   "sanitized": "show data",
@@ -311,6 +315,7 @@ ragwall/
 ### Production Recommendations
 
 **For healthcare/finance:**
+
 ```python
 # 96.4% detection worth the 21ms latency
 gate = PRRGate(
@@ -322,6 +327,7 @@ gate = PRRGate(
 ```
 
 **For high-traffic APIs:**
+
 ```python
 # 86.6% detection at 0.3ms
 gate = PRRGate(
@@ -331,6 +337,7 @@ gate = PRRGate(
 ```
 
 **For general applications:**
+
 ```python
 # Consider LLM-Guard (faster) or use this if cost is a concern
 gate = PRRGate(
@@ -349,6 +356,7 @@ gate = PRRGate(
 ## Limitations
 
 **Be aware:**
+
 - General attack detection slower than specialized tools (106ms vs 38ms)
 - Regex-only misses subtle attacks without explicit keywords
 - Domain tokens require fine-tuning for new domains
@@ -357,6 +365,7 @@ gate = PRRGate(
 ## Contributing
 
 We welcome contributions:
+
 - Add new attack patterns
 - Improve detection accuracy
 - Optimize performance
@@ -371,6 +380,7 @@ Apache License 2.0. See `LICENSE` file.
 ## Validation
 
 All performance claims validated November 17, 2025. See `VALIDATION_RESULTS.md` for:
+
 - Test datasets
 - Methodology
 - Reproducibility instructions

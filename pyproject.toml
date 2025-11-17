@@ -39,7 +39,7 @@ packages = [ "sanitizer", "sanitizer.jailbreak", "src", "src.api",]
 line-length = 100
 target-version = [ "py39", "py310", "py311",]
 include = "\\.pyi?$"
-extend-exclude = "/(\n  # directories\n  \\.eggs\n  | \\.git\n  | \\.hg\n  | \\.mypy_cache\n  | \\.tox\n  | \\.venv\n  | build\n  | dist\n)/\n"
+extend-exclude = "/(\n  # directories\n  \\.eggs\n  | \\.git\n  | \\.hg\n  | \\.mypy_cache\n  | \\.tox\n  | \\.venv\n  | ragenv\n  | build\n  | dist\n)/\n"
 
 [tool.mypy]
 python_version = "3.9"
@@ -53,7 +53,11 @@ sanitizer = [ "jailbreak/pattern_bundles/*.json",]
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra -q --strict-markers"
-testpaths = [ "tests",]
+testpaths = [ "tests", "evaluations",]
 python_files = [ "test_*.py",]
 python_classes = [ "Test*",]
 python_functions = [ "test_*",]
+markers = [
+    "integration: marks tests as integration tests (may be slow)",
+    "requires_transformer: marks tests that require transformer dependencies",
+]

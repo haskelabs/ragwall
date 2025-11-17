@@ -1,0 +1,22 @@
+{
+  "model": "gpt2-medium",
+  "embedder": "st",
+  "st_model": "all-MiniLM-L6-v2",
+  "corpus": "data/health_eval_corpus_mixed.jsonl",
+  "queries": "data/health_care_100_queries_matched.jsonl",
+  "sanitized": "data/health_care_100_queries_matched_sanitized.jsonl",
+  "k": 5,
+  "k2": 10,
+  "outdir": "reports/health_100_matched_eval",
+  "batch_size": 128,
+  "steer_alpha": 0.0,
+  "penalty": 0.2,
+  "rerank_risk": true,
+  "soft_proto_reject": false,
+  "proto_weight": 0.0,
+  "bootstrap": 50,
+  "doc_embeddings": null,
+  "baseline_embeddings": null,
+  "sanitized_embeddings": null,
+  "cache_readonly": false
+}

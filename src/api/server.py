@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import socket
 import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Any, Dict, List, Tuple
@@ -14,6 +15,14 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from sanitizer.rag_sanitizer import QuerySanitizer, SanitizerConfig  # noqa: E402
+from sanitizer.utils.receipts import ReceiptConfig  # noqa: E402
+
+
+def _env_flag(name: str, default: bool = False) -> bool:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() not in {"0", "false", "no", "off"}
 
 
 class RagWallService:
@@ -24,7 +33,18 @@ class RagWallService:
     """
 
     def __init__(self) -> None:
-        self.sanitizer = QuerySanitizer(SanitizerConfig())
+        receipt_cfg = ReceiptConfig(
+            enabled=_env_flag("RAGWALL_RECEIPTS_ENABLED", True),
+            key_path=os.environ.get("RAGWALL_RECEIPT_KEY"),
+            instance_id=os.environ.get("RAGWALL_INSTANCE_ID", socket.gethostname()),
+            config_hash=os.environ.get("RAGWALL_CONFIG_HASH", "open-core"),
+            include_query_preview=_env_flag("RAGWALL_RECEIPTS_INCLUDE_PREVIEW", False),
+        )
+        self.sanitizer = QuerySanitizer(
+            SanitizerConfig(
+                receipt_config=receipt_cfg,
+            )
+        )
         self.risk_lexicon: List[re.Pattern[str]] = [
             re.compile(r"(?i)ignore\s+(previous|prior|all)\s+(instructions?|rules?|policies)"),
             re.compile(r"(?i)no\s+rules"),
@@ -42,6 +62,7 @@ class RagWallService:
             "risky": bool(meta.get("risky", False)),
             "patterns": patterns,
             "meta": meta,
+            "reuse_baseline_embedding": bool(meta.get("reuse_baseline_embedding", False)),
         }
 
     def _doc_looks_risky(self, text: str) -> bool:

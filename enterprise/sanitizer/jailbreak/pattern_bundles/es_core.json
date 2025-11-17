@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "language": "es",
+    "bundle": "core",
+    "version": "1.1.0",
+    "description": "Core Spanish jailbreak patterns for general prompt injection",
+    "last_updated": "2025-11-05",
+    "coverage": {
+      "core_jailbreak": 12,
+      "access_escalation": 7,
+      "instruction_override": 8
+    }
+  },
+  "keywords": [
+    "ignora .{0,15}(todas? las? )?(?:instrucciones|reglas|restricciones|seguridad|políticas|limitaciones|directivas)",
+    "ignora .{0,15}(anteriores?|previas?|todas?)",
+    "desactiva .{0,15}(?:seguridad|filtros|restricciones|controles)",
+    "anula .{0,15}(?:restricciones|seguridad|protocolo|políticas|controles)",
+    "sin .{0,15}(?:restricciones|limitaciones|filtros|verificación|autorización)",
+    "no .{0,15}(?:reglas|restricciones|límites|filtros)",
+    "modo .{0,15}(?:desarrollador|administrador|sistema|root|superusuario|debug)",
+    "modo sin restricciones",
+    "acceso .{0,15}(?:sin restricciones|ilimitado|total|completo|irrestricto)",
+    "actúa como .{0,15}(?:administrador|desarrollador|sistema|root|hacker|atacante)",
+    "eres .{0,15}(?:dan|modo dan|unrestricted)",
+    "\\bdan\\b",
+    "disregard",
+    "no rules",
+    "without restrictions",
+    "developer mode",
+    "you are dan",
+    "act as",
+    "unfiltered",
+    "sudo"
+  ],
+  "structure": [
+    "\\bact as\\b",
+    "\\byou will now\\b",
+    "\\bfrom now on\\b",
+    "role[- ]?play",
+    "\\bdeveloper mode\\b",
+    "\\bas a (?:fictional|senior|expert)\\b",
+    "system prompt",
+    "\\bno\\s+rules?\\b|\\bwithout\\s+restrictions\\b",
+    "finge ser .{0,15}(?:un|una) .{0,15}(?:administrador|desarrollador|hacker|atacante)",
+    "pretende ser .{0,15}(?:un|una) .{0,15}(?:administrador|desarrollador|sistema)",
+    "rol: .{0,15}(?:administrador|desarrollador|hacker)",
+    "asume el rol de",
+    "en tu rol de .{0,15}(?:administrador|sistema|desarrollador)"
+  ],
+  "entropy_triggers": [
+    "modo dan",
+    "eres dan",
+    "sin restricciones",
+    "ignora todo",
+    "anula todo"
+  ]
+}

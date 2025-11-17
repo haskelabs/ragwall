@@ -61,6 +61,12 @@ htmlcov/
 
 # Logs
 *.log
+logs/
+
+# Local environments and artifacts
+competitor_test_env/
+ragenv/
+models/
 
 # Experiments and results
 experiments/results/
@@ -73,12 +79,12 @@ tmp/
 temp/
 *.tmp
 
-# Enterprise-only assets
-enterprise/
-
 # Patent materials
 patent/
 
 # Private documentation drafts
 docs/internal/
 evidence/
+docs_ignore/
+evaluations/benchmark/data/
+evaluations/benchmark/results/

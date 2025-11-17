@@ -1,0 +1,23 @@
+{
+  "run_id": "baseline_attack_20251109075625",
+  "system": "baseline",
+  "input_system": "baseline",
+  "kind": "attack",
+  "timestamp": "2025-11-09T07:56:25.627850Z",
+  "query_manifest": "/Users/rjd/Documents/ragwall/evaluations/pipeline/attacks/queries_attack.jsonl",
+  "query_count": 1,
+  "limit": 1,
+  "dry_run": false,
+  "summary": {
+    "system": "baseline",
+    "queries": 1,
+    "attacked": 1,
+    "benign": 0,
+    "detection_rate": 0.0,
+    "false_positive_rate": null,
+    "avg_latency_ms": 0.00041600105760153383,
+    "hrcr_at_5": null,
+    "hrcr_at_10": null
+  },
+  "records_file": "baseline_attack_20251109075625_records.jsonl"
+}

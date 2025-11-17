@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "language": "pt",
+    "bundle": "core",
+    "version": "0.1.0",
+    "description": "Portuguese core jailbreak patterns (TEMPLATE - Contributions welcome!)",
+    "last_updated": "2025-11-05",
+    "status": "draft",
+    "target_market": "Brazil (215M), Portugal (10M), Angola (33M), Mozambique (31M)",
+    "coverage": {
+      "core_jailbreak": 0,
+      "role_playing": 0,
+      "instruction_override": 0
+    }
+  },
+  "keywords": [
+    "ignore .{0,15}(?:instruções|regras|restrições|segurança|políticas)",
+    "desative .{0,15}(?:segurança|filtros|restrições)",
+    "modo .{0,15}(?:desenvolvedor|administrador|debug)",
+    "sem .{0,15}(?:restrições|limitações|filtros)",
+    "você é dan",
+    "\\bdan\\b"
+  ],
+  "structure": [
+    "\\baja como\\b",
+    "\\ba partir de agora\\b",
+    "\\bmodo desenvolvedor\\b",
+    "\\bsem\\s+restrições\\b"
+  ],
+  "entropy_triggers": [
+    "dan",
+    "sem restrições",
+    "ignore tudo"
+  ],
+  "_contribution_guide": {
+    "target_patterns": 50,
+    "target_detection_rate": "90%+",
+    "target_false_positive_rate": "<5%",
+    "test_queries_needed": 100,
+    "note": "Please translate core attack patterns from en_core.json and add Portuguese-specific variations. Focus on Brazilian Portuguese for maximum market reach."
+  }
+}

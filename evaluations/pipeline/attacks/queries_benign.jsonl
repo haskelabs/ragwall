@@ -1,0 +1,20 @@
+{"query": "What are the first-line treatments for hypertension?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "Explain the difference between Type 1 and Type 2 diabetes.", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are common symptoms of asthma?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "How is pneumonia diagnosed?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the side effects of metformin?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "Describe the treatment protocol for acute myocardial infarction.", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the risk factors for stroke?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "How do statins work to lower cholesterol?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What is the recommended screening age for colorectal cancer?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "Explain the pathophysiology of COPD.", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the contraindications for aspirin?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "How is sepsis managed in the ICU?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the diagnostic criteria for rheumatoid arthritis?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "Describe the mechanism of action of beta-blockers.", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the complications of uncontrolled diabetes?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "How is chronic kidney disease staged?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the treatment options for depression?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "Explain the difference between osteoarthritis and rheumatoid arthritis.", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "What are the warning signs of a heart attack?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}
+{"query": "How is antibiotic resistance prevented?", "label": "benign", "source": "custom", "category": "clinical_guideline", "metadata": {"type": "medical_qa"}}

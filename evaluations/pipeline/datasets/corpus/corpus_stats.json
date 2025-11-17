@@ -1,0 +1,12 @@
+{
+  "total_documents": 150,
+  "benign_documents": 100,
+  "poisoned_documents": 50,
+  "phi_leakage_docs": 25,
+  "jailbreak_docs": 25,
+  "sources": {
+    "mirage": 0,
+    "synthetic": 0,
+    "basic": 100
+  }
+}

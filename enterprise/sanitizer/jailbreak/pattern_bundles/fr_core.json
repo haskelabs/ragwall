@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "language": "fr",
+    "bundle": "core",
+    "version": "0.1.0",
+    "description": "French core jailbreak patterns (TEMPLATE - Contributions welcome!)",
+    "last_updated": "2025-11-05",
+    "status": "draft",
+    "target_market": "France (67M), Canada (10M), Belgium (5M), Switzerland (2M)",
+    "coverage": {
+      "core_jailbreak": 0,
+      "role_playing": 0,
+      "instruction_override": 0
+    }
+  },
+  "keywords": [
+    "ignore .{0,15}(?:instructions|règles|restrictions|sécurité|politiques)",
+    "désactive .{0,15}(?:sécurité|filtres|restrictions)",
+    "mode .{0,15}(?:développeur|administrateur|debug)",
+    "sans .{0,15}(?:restrictions|limitations|filtres)",
+    "tu es dan",
+    "\\bdan\\b"
+  ],
+  "structure": [
+    "\\bagis comme\\b",
+    "\\bà partir de maintenant\\b",
+    "\\bmode développeur\\b",
+    "\\bsans\\s+restrictions\\b"
+  ],
+  "entropy_triggers": [
+    "dan",
+    "sans restrictions",
+    "ignore tout"
+  ],
+  "_contribution_guide": {
+    "target_patterns": 50,
+    "target_detection_rate": "90%+",
+    "target_false_positive_rate": "<5%",
+    "test_queries_needed": 100,
+    "note": "Please translate core attack patterns from en_core.json and add French-specific variations"
+  }
+}

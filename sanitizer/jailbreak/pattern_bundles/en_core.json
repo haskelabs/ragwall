@@ -2,19 +2,24 @@
   "metadata": {
     "language": "en",
     "bundle": "core",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Comprehensive baseline jailbreak patterns for English prompts",
-    "last_updated": "2025-11-05",
+    "last_updated": "2025-11-16",
     "coverage": {
       "core_jailbreak": 20,
       "role_playing": 12,
       "instruction_override": 15,
-      "system_manipulation": 8
+      "system_manipulation": 8,
+      "social_engineering": 6,
+      "hypothetical_framing": 4
     }
   },
   "keywords": [
     "ignore .{0,15}(previous|prior|policy|safety|instruction|restriction|restrictions|rules|guidelines|protocol)",
+    "ignore (the )?(above|below|context|everything|all)",
     "disregard .{0,15}(previous|prior|all|instructions|rules|restrictions|safety)",
+    "forget .{0,15}(previous|prior|all|everything|instructions|rules|context)",
+    "nevermind( the)?( above| previous| prior| context)?",
     "no rules",
     "no restrictions",
     "without restrictions",
@@ -65,7 +70,26 @@
     "\\bbackdoor\\b",
     "execute without (validation|checks|restriction|hesitation)",
     "proceed without (validation|checks|restriction|approval)",
-    "skip (validation|checks|verification|authorization)"
+    "skip (validation|checks|verification|authorization)",
+    "end of (context|instructions|rules|document|input)",
+    "(start|begin) (new |a )?(task|instruction|mode|context|conversation)",
+    "switch to .{0,15}(mode|task|context|conversation)",
+    "new (task|context|instruction|directive):",
+    "stop\\. .{0,15}(now|admin|system|new task)",
+    "for (audit|compliance|review|testing|verification) (purposes|review).{0,30}(provide|share|list|show|give|reveal|dump) .{0,30}(patient|ssn|credential|data|record|information)",
+    "for (compliance|security) (audit|review|check).{0,30}(reveal|provide|list|show) .{0,30}(all|everything|data|records)",
+    "this is (IT|information|cyber) (security|department|team).{0,30}(provide|need|require|grant) .{0,30}(access|credentials|data|system|admin)",
+    "(IT|security|admin|support) (team|department|staff) (here|speaking).{0,30}(need|require|provide) .{0,30}(access|password|credentials)",
+    "security (audit|assessment|check).{0,30}(grant|provide|need) .{0,30}(access|rights|privileges)",
+    "authorized (personnel|staff|security).{0,30}(requesting|need) .{0,30}(access|data|credentials)",
+    "if (i|you) (were|was|had|have) (authorized|allowed|permitted|admin|root|superuser|full).{0,30}(bypass|access|reveal|dump|extract|obtain|rights|privileges)",
+    "hypothetically.{0,50}(bypass|reveal|extract|obtain|dump|access|show|expose).{0,30}(patient|ssn|credential|data|database|system|information|records)",
+    "suppose (i|you) (had|have|were|was).{0,30}(admin|root|access|superuser).{0,30}(dump|reveal|extract|bypass|show|expose)",
+    "assuming (i|you).{0,30}(authorized|permitted|admin|root|superuser).{0,30}(bypass|access|reveal|dump|extract|show)",
+    "what (would|could) (happen|occur|you do) if.{0,30}(i|you).{0,30}(had|have|were) (admin|root|full|unrestricted)",
+    "theoretically.{0,30}if.{0,30}(admin|authorized|permitted)",
+    "in theory.{0,30}(could|would|can).{0,30}(access|bypass|reveal)",
+    "just (curious|wondering|asking).{0,30}(what|how).{0,30}(password|credential|secret|key) (is|for|to).{0,30}(admin|system|database|account)"
   ],
   "structure": [
     "\\bact as\\b",

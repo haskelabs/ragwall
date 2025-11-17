@@ -1,0 +1,130 @@
+{
+  "N_queries": 100,
+  "N_attacked": 50,
+  "N_benign": 50,
+  "HRCR@5": {
+    "baseline": 0.68,
+    "sanitized": 0.3520000000000001,
+    "absolute_drop": 0.32799999999999996,
+    "relative_drop": 0.4823529411764705
+  },
+  "Benign_Jaccard@5": {
+    "mean": 1.0,
+    "drift": 0.0
+  },
+  "faithfulness_proxy_attacked": {
+    "baseline_benign_ratio@k": 0.32,
+    "sanitized_benign_ratio@k": 0.648,
+    "relative_gain": 1.025
+  },
+  "embed_latency_ms": {
+    "batches": [
+      448.4138488769531
+    ],
+    "p95_excl_first": 448.4138488769531
+  },
+  "knobs": {
+    "embedder_backend": "st",
+    "embedder_model": "all-MiniLM-L6-v2",
+    "steer_alpha": 0.0,
+    "risk_aware_rerank": true,
+    "risk_rerank_penalty": 0.2,
+    "soft_proto_reject": false,
+    "proto_weight": 0.0,
+    "mask_condition": "risky && baseline_mal>0",
+    "deterministic_tie_breaker": "doc_index_epsilon",
+    "seed": 42,
+    "bootstrap_samples": 50,
+    "suffix_for_generation_only": false,
+    "regex_cosine_gate_active": false
+  },
+  "HRCR@10": {
+    "baseline": 0.6659999999999999,
+    "sanitized": 0.3459999999999999,
+    "absolute_drop": 0.32,
+    "relative_drop": 0.48048048048048053
+  },
+  "per_pattern_HRCR": {
+    "phi_extraction": {
+      "baseline": 0.4761904761904761,
+      "sanitized": 0.2,
+      "relative_drop": 0.5799999999999998
+    },
+    "access_escalation": {
+      "baseline": 1.0,
+      "sanitized": 0.13333333333333333,
+      "relative_drop": 0.8666666666666667
+    },
+    "protocol_override": {
+      "baseline": 0.9777777777777779,
+      "sanitized": 0.3777777777777777,
+      "relative_drop": 0.6136363636363636
+    },
+    "insurance_fraud": {
+      "baseline": 0.4,
+      "sanitized": 0.175,
+      "relative_drop": 0.5625
+    },
+    "credential_theft": {
+      "baseline": 1.0,
+      "sanitized": 0.975,
+      "relative_drop": 0.025000000000000022
+    },
+    "diagnosis_manipulation": {
+      "baseline": 1.0,
+      "sanitized": 0.4,
+      "relative_drop": 0.6
+    }
+  },
+  "per_pattern_counts": {
+    "phi_extraction": 21,
+    "access_escalation": 3,
+    "protocol_override": 9,
+    "insurance_fraud": 8,
+    "credential_theft": 8,
+    "diagnosis_manipulation": 1
+  },
+  "bootstrap": {
+    "HRCR@5": {
+      "baseline_CI": [
+        0.5787000000000001,
+        0.6900000000000002,
+        0.8071000000000002
+      ],
+      "sanitized_CI": [
+        0.2609,
+        0.36000000000000004,
+        0.4542
+      ],
+      "relative_drop_CI": [
+        0.3927810350659601,
+        0.4773503300705667,
+        0.6068486590038312
+      ]
+    },
+    "Benign_Jaccard@5": {
+      "drift_CI": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "faithfulness_proxy_attacked": {
+      "benign_ratio_baseline_CI": [
+        0.19290000000000002,
+        0.31,
+        0.42129999999999995
+      ],
+      "benign_ratio_sanitized_CI": [
+        0.5458,
+        0.64,
+        0.7391
+      ],
+      "relative_gain_CI": [
+        0.5869109637698322,
+        1.1005190796857462,
+        2.2615143929912382
+      ]
+    }
+  }
+}
